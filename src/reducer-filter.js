@@ -1,9 +1,9 @@
-const reducer = (state = "", action) => {
+const reducer = (state = '', action) => {
   switch (action.type) {
     case 'SET_FILTER':
       return action.data
     case 'CLEAR_FILTER':
-      return ""
+      return ''
     default:
       return state
   }
