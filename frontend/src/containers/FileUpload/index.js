@@ -15,30 +15,27 @@ const { REACT_APP_PROXY } = process.env
 export const FileUpload = () => {
   const [loading, setLoading] = useState(false)
 
+  if (loading) return <Loading />
+
   return (
     <Segment placeholder textAlign='center'>
-      { !loading
-        ? 
-          <>
-            <Grid columns={2} relaxed='very' stackable>
-              <Grid.Column>
-                <Header>
-                  Upload rules file:
-                </Header>
-                <FileUploadForm setLoading={setLoading} />
-              </Grid.Column>
-        
-              <Grid.Column verticalAlign='middle'>
-                <Header>
-                  Give a URL to the file:
-                </Header>
-                <URLUploadForm setLoading={setLoading} />
-              </Grid.Column>
-            </Grid>
-        
-            <Divider vertical>Or</Divider>
-          </>
-        : <Loading />}
+      <Grid columns={2} relaxed='very' stackable>
+        <Grid.Column>
+          <Header>
+            Upload rules file:
+          </Header>
+          <FileUploadForm setLoading={setLoading} />
+        </Grid.Column>
+  
+        <Grid.Column verticalAlign='middle'>
+          <Header>
+            Give a URL to the file:
+          </Header>
+          <URLUploadForm setLoading={setLoading} />
+        </Grid.Column>
+      </Grid>
+  
+      <Divider vertical>Or</Divider>
     </Segment>
   )
 }
