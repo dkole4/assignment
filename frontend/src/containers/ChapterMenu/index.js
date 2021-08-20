@@ -1,8 +1,9 @@
-import { useState } from "react"
+import React, { useState } from "react"
 import { useDispatch } from "react-redux"
 import { useHistory } from "react-router-dom"
-import { Menu } from "semantic-ui-react"
-import { setChapter } from "../reducer-rules"
+import { Button, Menu } from "semantic-ui-react"
+
+import { setChapter } from "../../store/actions/rules-actions"
 
 
 export const ChapterMenu = ({ chapters }) => {
@@ -17,11 +18,23 @@ export const ChapterMenu = ({ chapters }) => {
   const setActive = (chapter) => {
     setActiveItem(chapter)
     dispatch(setChapter(chapter))
-    history.push('/rulebook')
+    history.push('/')
   }
+
+  const redirectToUpload = () =>
+    history.push('/upload')
 
   return (
     <Menu vertical>
+      <Menu.Item>
+        <Button
+          primary
+          onClick={redirectToUpload}
+        >
+          Upload another file
+        </Button>
+      </Menu.Item>
+      
       { chapters.map(chapter => {
         const key = getKey(chapter)
 

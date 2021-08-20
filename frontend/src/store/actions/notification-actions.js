@@ -1,15 +1,3 @@
-const reducer = (state = null, action) => {
-  switch (action.type) {
-    case 'SET_NOTIFICATION':
-      return { ...action.data }
-    case 'CLEAR_NOTIFICATION':
-      if (state && action.data.content === state.content)
-        return null
-    default:
-      return state
-  }
-}
-
 export const setErrorMessage = (content) => {
   return async dispatch => {
     dispatch({
@@ -47,6 +35,3 @@ export const clearNotification = () => {
     })
   }
 }
-
-export default reducer
-

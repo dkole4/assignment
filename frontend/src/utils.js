@@ -1,5 +1,4 @@
-import React from 'react'
-import { useState } from "react"
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 const CHAPTER_REGEX = /^\d{3}\.\s\w+/i
@@ -60,7 +59,7 @@ const processEntryLine = (line) => {
   for (const match of matches) {
     parts.push(line.slice(lastIndex, match.index))
     parts.push(
-      <Link key={match[0]} to={`/rulebook/${match[0]}`}>{match[0]}</Link>
+      <Link key={match[0]} to={`/${match[0]}`}>{match[0]}</Link>
     )
     lastIndex = match.index + match[0].length
   }

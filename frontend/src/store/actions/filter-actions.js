@@ -1,16 +1,6 @@
-const reducer = (state = '', action) => {
-  switch (action.type) {
-    case 'SET_FILTER':
-      return action.data
-    case 'CLEAR_FILTER':
-      return ''
-    default:
-      return state
-  }
-}
-
 export const setFilter = (value) => {
   return async dispatch => {
+    console.log(value)
     dispatch({
       type: 'SET_FILTER',
       data: value
@@ -25,6 +15,3 @@ export const clearFilter = () => {
     })
   }
 }
-
-export default reducer
-

@@ -2,8 +2,10 @@ import React, { useEffect } from 'react'
 import { useSelector } from "react-redux"
 import { useLocation, useParams } from "react-router-dom"
 import { Container, Grid, Header, Segment } from "semantic-ui-react"
-import { ChapterMenu } from "./ChapterMenu"
-import { Filter } from "./Filter"
+import { Loading } from '../../components/Loading'
+
+import { ChapterMenu } from "../ChapterMenu"
+import { Filter } from "../Filter"
 
 
 const findRule = (ruleId, state) => {
@@ -21,15 +23,19 @@ export const Rulebook = () => {
   const { pathname } = useLocation()
 
   const rules = useSelector(state => 
-    ({
-      ...state.rules,
-      filtered: ruleId ? findRule(ruleId, state) : state.rules.filtered,
-    })
+    state.rules
+      ? ({
+          ...state.rules,
+          filtered: ruleId ? findRule(ruleId, state) : state.rules.filtered
+        })
+      : null
   )
 
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [pathname])
+
+  if (!rules) return <Loading />
 
   return (
     <Grid>

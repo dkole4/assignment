@@ -1,9 +1,16 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import { Button, Divider, Form, Grid, Header, Icon, Input, Label, Segment } from 'semantic-ui-react'
-import { initializeRules } from '../reducer-rules'
-import { useField } from '../utils'
+import { 
+  Button, Divider, Form, Grid, Header, Segment
+} from 'semantic-ui-react'
+
+import { Loading } from '../../components/Loading'
+import { initializeRules } from '../../store/actions/rules-actions'
+import { useField } from '../../utils'
+
+
+const { REACT_APP_PROXY } = process.env
 
 export const FileUpload = () => {
   const [loading, setLoading] = useState(false)
@@ -31,13 +38,7 @@ export const FileUpload = () => {
         
             <Divider vertical>Or</Divider>
           </>
-        : <Header as='h2' icon>
-            <Icon loading name='circle notch' />
-            Loading...
-            <Header.Subheader>
-              Setting up your personal rulebook...
-            </Header.Subheader>
-          </Header>}
+        : <Loading />}
     </Segment>
   )
 }
@@ -49,13 +50,15 @@ const URLUploadForm = ({ setLoading }) => {
   
   const handleRequest = async (e) => {
     e.preventDefault()
-    console.log(url)
-    fetch(url.value)
+    
+    fetch(REACT_APP_PROXY + url.value)
       .then((response) => {
         dispatch(initializeRules(response.body))
       })
-    history.push('/rulebook')
+
+    history.push('/')
     setLoading(true)
+    resetUrl()
   }
 
   return (
@@ -89,7 +92,7 @@ const FileUploadForm = ({ setLoading }) => {
       return
     e.preventDefault()
     dispatch(initializeRules(file.stream()))
-    history.push('/rulebook')
+    history.push('/')
     setLoading(true)
   }
 

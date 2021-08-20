@@ -4,8 +4,8 @@ import { useHistory } from 'react-router-dom'
 import { 
   Input, Button, Segment, Grid, Icon
 } from "semantic-ui-react"
-import { clearFilter, setFilter } from "../reducer-filter"
-import { useField } from "../utils"
+import { clearFilter, setFilter } from "../../store/actions/filter-actions"
+import { useField } from "../../utils"
 
 
 export const Filter = () => {
@@ -16,7 +16,7 @@ export const Filter = () => {
 
 	const filter = async () => {
 		dispatch(setFilter(inputValue.value))
-    history.push('/rulebook/search')
+    history.push('/')
   }
   
   const removeFilter = async () => {
