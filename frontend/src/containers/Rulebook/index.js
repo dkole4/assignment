@@ -10,8 +10,6 @@ import { Filter } from "../Filter"
 
 const findRule = (ruleId, state) => {
   const regex = new RegExp("^" + ruleId + "(\\.|\\s)")
-  console.log(regex)
-  console.log(state.rules)
   return {
     chapters: state.rules.original.chapters,
     entries: state.rules.original.entries.filter(rule => regex.test(rule))
@@ -51,8 +49,6 @@ export const Rulebook = () => {
 }
 
 export const RuleList = ({ rules }) => {
-  console.log(rules)
-
   const getKey = (rule) =>
     rule[0].split(" ", 2)[0]
   
