@@ -1,23 +1,10 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 
 const CHAPTER_REGEX = /^\d{3}\.\s\w+/i
 const ENTRY_REGEX = /^\d{3}\.\d{1,}\.?[a-z]?\s\w+/i
 const MENTION_REGEX = /(?!^)\d{3}\.\d{1,}[a-z]?/ig
 
-export const useField = (type, defaultValue = "") => {
-	const [value, setValue] = useState(defaultValue)
-
-	const resetValue = () => setValue(defaultValue)
-	
-	const onChange = (e) =>
-		setValue(e.target.value)
-
-	return [
-		{ type, value, onChange },
-		resetValue
-	]
-}
 
 async function* lineIterator(stream) {
   const utf8Decoder = new TextDecoder("utf-8");
@@ -80,10 +67,10 @@ export const parseRules = async (stream) => {
     if (CHAPTER_REGEX.test(line) && !state.chapters.includes(line))
       state.chapters.push(line)
     else if (ENTRY_REGEX.test(line) && !state.entries.includes(line))
-      state.entries.push(processEntryLine(line))
+      state.entries.push(
+        processEntryLine(line)
+      )
   }
-
-  console.log(state)
 
 	return state
 }

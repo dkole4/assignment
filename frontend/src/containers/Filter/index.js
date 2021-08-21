@@ -5,7 +5,7 @@ import {
   Input, Button, Segment, Grid, Icon
 } from "semantic-ui-react"
 import { clearFilter, setFilter } from "../../store/actions/filter-actions"
-import { useField } from "../../utils"
+import { useField } from "../../utils/useField"
 
 
 export const Filter = () => {

@@ -7,7 +7,7 @@ import {
 
 import { Loading } from '../../components/Loading'
 import { initializeRules } from '../../store/actions/rules-actions'
-import { useField } from '../../utils'
+import { useField } from '../../utils/useField'
 
 
 const { REACT_APP_PROXY } = process.env
@@ -48,7 +48,7 @@ const URLUploadForm = ({ setLoading }) => {
   const handleRequest = async (e) => {
     e.preventDefault()
     
-    fetch(REACT_APP_PROXY + url.value)
+    fetch(REACT_APP_PROXY.concat(url.value))
       .then((response) => {
         dispatch(initializeRules(response.body))
       })
@@ -75,7 +75,6 @@ const URLUploadForm = ({ setLoading }) => {
   )
 }
 
-
 const FileUploadForm = ({ setLoading }) => {
   const [file, setFile] = useState(null)
   const dispatch = useDispatch()
@@ -85,9 +84,9 @@ const FileUploadForm = ({ setLoading }) => {
     setFile(e.target.files[0])
   
   const handleUpload = async (e) => {
-    if (!file)
-      return
     e.preventDefault()
+    if (!file) return 
+       
     dispatch(initializeRules(file.stream()))
     history.push('/')
     setLoading(true)
