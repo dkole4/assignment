@@ -15,7 +15,7 @@ export const Filter = () => {
   const history = useHistory()
 
 	const filter = async () => {
-		dispatch(setFilter(inputValue.value))
+		dispatch(setFilter(inputValue.value.toLowerCase()))
     history.push('/')
   }
   

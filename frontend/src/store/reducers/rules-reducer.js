@@ -8,6 +8,7 @@ const reducer = (state = null, action) => {
           entries: state.original.entries.filter(a => 
             a.map(a => typeof a === 'string' ? a : a.key)
               .join('')
+              .toLowerCase()
               .includes(action.data)
           )
         }
