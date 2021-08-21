@@ -6,5 +6,5 @@ setup(
    description='A proxy for assignment app',
    author='Denis Kole',
    packages=['server'],
-   install_requires=[]
+   install_requires=['requests']
 )
