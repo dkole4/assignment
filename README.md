@@ -1,6 +1,13 @@
-## Assignment ##
+# Assignment #
 
 This is an assigment app implemented for my application to Reaktor. The app transforms a text file containing the rules of a board game into an interactive rulebook with a chapter menu and a search bar. Users can upload files or enter a link that leads to the file.
+
+#### Implemented functionality ####
+
+- Table of Contents with selectable chapters
+- Search bar
+- Links to mentioned rules within the rules
+- Usage of another file with rules or URL to that file
 
 ### Proxy for file fetching using URL ###
 
