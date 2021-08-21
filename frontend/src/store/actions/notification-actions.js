@@ -1,37 +1,13 @@
-export const setErrorMessage = (content) => {
+export const setFileErrorMessage = () => {
   return async dispatch => {
     dispatch({
       type: 'SET_NOTIFICATION',
-      data: { content, type: 'error' }
+      data: 'An error occurer while fetching file, please try again or check given URL'
     })
     setTimeout(() => {
       dispatch({
-        type: 'CLEAR_NOTIFICATION',
-        data: { content }
+        type: 'CLEAR_NOTIFICATION'
       })
     }, 5000)
-  }
-}
-
-export const setNotificationMessage = (content) => {
-  return async dispatch => {
-    dispatch({
-      type: 'SET_NOTIFICATION',
-      data: { content, type: 'notification' }
-    })
-    setTimeout(() => {
-      dispatch({
-        type: 'CLEAR_NOTIFICATION',
-        data: { content }
-      })
-    }, 5000)
-  }
-}
-
-export const clearNotification = () => {
-  return async dispatch => {
-    dispatch({
-      type: 'CLEAR_NOTIFICATION'
-    })
   }
 }

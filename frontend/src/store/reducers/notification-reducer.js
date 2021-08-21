@@ -1,11 +1,9 @@
-const reducer = (state = null, action) => {
+const reducer = (state = '', action) => {
   switch (action.type) {
   case 'SET_NOTIFICATION':
-    return { ...action.data }
+    return action.data
   case 'CLEAR_NOTIFICATION':
-    if (state && action.data.content === state.content)
-      return null
-    return state
+    return ''
   default:
     return state
   }

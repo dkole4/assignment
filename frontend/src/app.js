@@ -8,8 +8,10 @@ import 'semantic-ui-css/semantic.min.css'
 
 import { Rulebook } from './containers/Rulebook'
 import { FileUpload } from './containers/FileUpload'
+import { Notification } from './containers/Notification'
 import ruleFile from './assets/rules.txt'
 import { initializeRules } from './store/actions/rules-actions'
+import { setFileErrorMessage } from './store/actions/notification-actions'
 
 
 const { 
@@ -29,7 +31,10 @@ export const App = () => {
     } else if (REACT_APP_PROXY) {
       fetch(REACT_APP_PROXY.concat(REACT_APP_DL_DEFAULT))
         .then((response) => {
-          dispatch(initializeRules(response.body))
+          if (response.status === 404)
+            dispatch(setFileErrorMessage())   
+          else
+            dispatch(initializeRules(response.body))
         })
     }
   }, [dispatch])
@@ -48,6 +53,7 @@ export const App = () => {
             <Rulebook />
           </Route>
         </Switch>
+        <Notification />
       </Container>
     </Router>
   )

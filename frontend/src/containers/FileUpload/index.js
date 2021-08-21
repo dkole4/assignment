@@ -8,6 +8,7 @@ import PropTypes from 'prop-types'
 
 import { Loading } from '../../components/Loading'
 import { initializeRules } from '../../store/actions/rules-actions'
+import { setFileErrorMessage } from '../../store/actions/notification-actions'
 import { useField } from '../../utils/useField'
 
 
@@ -51,12 +52,17 @@ const URLUploadForm = ({ setLoading }) => {
     
     fetch(REACT_APP_PROXY.concat(url.value))
       .then((response) => {
-        dispatch(initializeRules(response.body))
+        if (response.status === 404) {
+          dispatch(setFileErrorMessage())
+        }
+        else {
+          dispatch(initializeRules(response.body))
+          history.push('/')
+          setLoading(true)
+          resetUrl()
+        }
       })
 
-    history.push('/')
-    setLoading(true)
-    resetUrl()
   }
 
   return (
