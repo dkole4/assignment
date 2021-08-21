@@ -1,8 +1,8 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import requests
 
-HOST = "localhost"
-PORT = 8082
+HOST = "0.0.0.0"
+PORT = 8080
 
 class Handler(BaseHTTPRequestHandler):
     def do_GET(self):
