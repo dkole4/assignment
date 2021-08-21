@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom'
 import { 
   Button, Divider, Form, Grid, Header, Segment
 } from 'semantic-ui-react'
+import PropTypes from 'prop-types'
 
 import { Loading } from '../../components/Loading'
 import { initializeRules } from '../../store/actions/rules-actions'
@@ -75,6 +76,10 @@ const URLUploadForm = ({ setLoading }) => {
   )
 }
 
+URLUploadForm.propTypes = {
+  setLoading: PropTypes.func.isRequired
+}
+
 const FileUploadForm = ({ setLoading }) => {
   const [file, setFile] = useState(null)
   const dispatch = useDispatch()
@@ -110,4 +115,8 @@ const FileUploadForm = ({ setLoading }) => {
       </Button>
     </Form>
   )
+}
+
+FileUploadForm.propTypes = {
+  setLoading: PropTypes.func.isRequired
 }

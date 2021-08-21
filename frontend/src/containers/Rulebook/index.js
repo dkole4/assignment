@@ -1,18 +1,19 @@
 import React, { useEffect } from 'react'
-import { useSelector } from "react-redux"
-import { useLocation, useParams } from "react-router-dom"
-import { Container, Grid, Header, Segment } from "semantic-ui-react"
+import { useSelector } from 'react-redux'
+import { useLocation, useParams } from 'react-router-dom'
+import { Container, Grid, Header, Segment } from 'semantic-ui-react'
 import { Loading } from '../../components/Loading'
+import PropTypes from 'prop-types'
 
-import { ChapterMenu } from "../ChapterMenu"
-import { Filter } from "../Filter"
+import { ChapterMenu } from '../ChapterMenu'
+import { Filter } from '../Filter'
 
 
-const findRule = (ruleId, state) => {
-  const regex = new RegExp("^" + ruleId + "(\\.|\\s)")
+const findRule = (ruleId, original) => {
+  const regex = new RegExp('^' + ruleId + '(\\.|\\s)')
   return {
-    chapters: state.rules.original.chapters,
-    entries: state.rules.original.entries.filter(rule => regex.test(rule))
+    chapters: original.chapters,
+    entries: original.entries.filter(rule => regex.test(rule.join('')))
   }
 }
 
@@ -23,9 +24,9 @@ export const Rulebook = () => {
   const rules = useSelector(state => 
     state.rules
       ? ({
-          ...state.rules,
-          filtered: ruleId ? findRule(ruleId, state) : state.rules.filtered
-        })
+        ...state.rules,
+        filtered: ruleId ? findRule(ruleId, state.rules.original) : state.rules.filtered
+      })
       : null
   )
 
@@ -50,7 +51,7 @@ export const Rulebook = () => {
 
 export const RuleList = ({ rules }) => {
   const getKey = (rule) =>
-    rule[0].split(" ", 2)[0]
+    rule[0].split(' ', 2)[0]
   
   if (!rules) {
     return (
@@ -71,4 +72,12 @@ export const RuleList = ({ rules }) => {
   )
 }
 
+RuleList.propTypes = {
+  rules: PropTypes.object
+}
+
 const Rule = ({ rule }) => <Segment>{rule}</Segment>
+
+Rule.propTypes = {
+  rule: PropTypes.array.isRequired
+}

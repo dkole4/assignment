@@ -7,41 +7,38 @@ const MENTION_REGEX = /(?!^)\d{3}\.\d{1,}[a-z]?/ig
 
 
 async function* lineIterator(stream) {
-  const utf8Decoder = new TextDecoder("utf-8");
-  let reader = stream.getReader();
-  let {value: chunk, done: readerDone} = await reader.read();
-  chunk = chunk ? utf8Decoder.decode(chunk, {stream: true}) : "";
+  const utf8Decoder = new TextDecoder('utf-8')
+  let reader = stream.getReader()
+  let {value: chunk, done: readerDone} = await reader.read()
+  chunk = chunk ? utf8Decoder.decode(chunk, {stream: true}) : ''
 
-  let re = /\r\n|\n|\r/gm;
-  let startIndex = 0;
+  let re = /\r\n|\n|\r/gm
+  let startIndex = 0
 
   for (;;) {
-    let result = re.exec(chunk);
+    let result = re.exec(chunk)
     if (!result) {
       if (readerDone) 
-        break;
+        break
 
       let remainder = chunk.substr(startIndex);
-      ({value: chunk, done: readerDone} = await reader.read());
-      chunk = remainder + (chunk ? utf8Decoder.decode(chunk, {stream: true}) : "");
-      startIndex = re.lastIndex = 0;
-      continue;
+      ({value: chunk, done: readerDone} = await reader.read())
+      chunk = remainder + (chunk ? utf8Decoder.decode(chunk, {stream: true}) : '')
+      startIndex = re.lastIndex = 0
+      continue
     }
-    yield chunk.substring(startIndex, result.index);
-    startIndex = re.lastIndex;
+    yield chunk.substring(startIndex, result.index)
+    startIndex = re.lastIndex
   }
 
   if (startIndex < chunk.length)
-    yield chunk.substr(startIndex);
+    yield chunk.substr(startIndex)
 }
 
 const processEntryLine = (line) => {
   const parts = []
   const matches = line.matchAll(MENTION_REGEX)
   let lastIndex = 0
-
-  if (matches.done)
-    return line
 
   for (const match of matches) {
     parts.push(line.slice(lastIndex, match.index))
@@ -56,10 +53,10 @@ const processEntryLine = (line) => {
 }
 
 export const parseRules = async (stream) => {
-	const state = {
-		chapters: [],
-		entries: []
-	}
+  const state = {
+    chapters: [],
+    entries: []
+  }
 
   if (!stream) return stream
 
@@ -72,5 +69,5 @@ export const parseRules = async (stream) => {
       )
   }
 
-	return state
+  return state
 }

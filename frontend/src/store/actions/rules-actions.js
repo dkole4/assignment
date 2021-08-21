@@ -1,4 +1,4 @@
-import { parseRules } from "../../utils/fileProcessing"
+import { parseRules } from '../../utils/fileProcessing'
 
 export const initializeRules = (stream) => {
   return async dispatch => {

@@ -1,9 +1,10 @@
-import React, { useState } from "react"
-import { useDispatch } from "react-redux"
-import { useHistory } from "react-router-dom"
-import { Button, Menu } from "semantic-ui-react"
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom'
+import { Button, Menu } from 'semantic-ui-react'
+import PropTypes from 'prop-types'
 
-import { setChapter } from "../../store/actions/rules-actions"
+import { setChapter } from '../../store/actions/rules-actions'
 
 
 export const ChapterMenu = ({ chapters }) => {
@@ -51,4 +52,8 @@ export const ChapterMenu = ({ chapters }) => {
       })}
     </Menu>
   )
+}
+
+ChapterMenu.propTypes = {
+  chapters: PropTypes.array.isRequired
 }
